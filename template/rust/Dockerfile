@@ -11,7 +11,7 @@ RUN chmod +x /usr/bin/fwatchdog
 WORKDIR /home/app
 
 RUN apt-get update -qy \
-    && apt-get install -qy ca-certificates ${ADDITIONAL_PACKAGE} --no-install-recommends
+    && apt-get install -qy ca-certificates pkg-config libssl-dev ${ADDITIONAL_PACKAGE} --no-install-recommends
 
 COPY function ./function
 COPY main ./main
