@@ -1,1 +1,4 @@
-function/target
+function/target/
+function/Cargo.lock
+main/target/
+main/Cargo.lock
