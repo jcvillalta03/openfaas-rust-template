@@ -3,6 +3,6 @@
 ## Usage
 
 ```shell
-faas-cli template pull https://github.com/jonstodle/openfaas-rust-template
+faas-cli template pull https://github.com/openfaas-incubator/openfaas-rust-template
 faas-cli new oxidize --language rust
 ```
