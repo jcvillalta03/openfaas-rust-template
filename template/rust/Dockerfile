@@ -5,7 +5,7 @@
 # starting and monitoring functions in OpenFaaS
 # ----------------------------------------------------------------------------------------------------------
 
-FROM openfaas/classic-watchdog:0.13.4 as watchdog
+FROM openfaas/classic-watchdog:0.18.17 as watchdog
 
 # ----------------------------------------------------------------------------------------------------------
 # Build Stage
@@ -59,21 +59,12 @@ RUN RUSTFLAGS=-Clinker=musl-gcc cargo build --release --target=x86_64-unknown-li
 # use a smaller image (e.g. Alpine) for the final output of the build
 # ----------------------------------------------------------------------------------------------------------
 
-FROM alpine:latest
-RUN apk add --no-cache libpq ca-certificates
-
-# Add non root user
-RUN addgroup --system app && adduser --system app app
-RUN mkdir -p /home/app
-
-WORKDIR /home/app
+FROM scratch
 
 COPY --from=builder /usr/bin/fwatchdog .
 COPY --from=builder /home/app/main/target/x86_64-unknown-linux-musl/release/main .
 
-RUN chown -R app /home/app
-
-USER app
+USER 1000
 
 ENV fprocess="./main"
 
